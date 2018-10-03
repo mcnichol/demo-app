@@ -5,22 +5,28 @@ buildscript {
 
     repositories {
         mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
 
     dependencies {
-        classpath "io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE"
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-        classpath 'com.netflix.nebula:gradle-lint-plugin:latest.release'
+        classpath ("io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE")
+        classpath ("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath ("com.netflix.nebula:gradle-lint-plugin:latest.release")
+        classpath "gradle.plugin.com.gorylenko.gradle-git-properties:gradle-git-properties:1.5.1"
+
     }
 }
 
-apply plugin: 'nebula.lint'
+apply plugin: "nebula.lint"
 apply plugin: "java"
 apply plugin: "io.spring.dependency-management"
 apply plugin: "org.springframework.boot"
+apply plugin: "com.gorylenko.gradle-git-properties"
 
-group 'com.mcnichol'
-version '1.0-SNAPSHOT'
+group "com.mcnichol"
+version "1.0-SNAPSHOT"
 
 sourceCompatibility = 1.8
 
@@ -28,15 +34,21 @@ repositories {
     mavenCentral()
 }
 
+springBoot  {
+    buildInfo()
+}
+
 dependencies {
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework.boot:spring-boot-starter-security")
+    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile ("io.micrometer:micrometer-registry-jmx:latest.release")
+    compile ("io.micrometer:micrometer-registry-prometheus:latest.release")
 
-
-    testCompile('org.junit.jupiter:junit-jupiter-api:5.2.0')
-    testRuntime('org.junit.jupiter:junit-jupiter-engine:5.2.0')
+    testCompile("org.junit.jupiter:junit-jupiter-api:5.2.0")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.2.0")
     testCompile("org.springframework.boot:spring-boot-starter-test")
 
 }
 
-gradleLint.rules = ['all-dependency']
+gradleLint.rules = ["all-dependency"]

@@ -1,6 +1,7 @@
 package com.mcnichol.demo.controller;
 
 
+import io.micrometer.core.instrument.composite.CompositeMeterRegistry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +23,7 @@ class AppControllerTest {
 
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(new AppControllerImpl()).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(new AppControllerImpl(new CompositeMeterRegistry())).build();
     }
 
     @Test

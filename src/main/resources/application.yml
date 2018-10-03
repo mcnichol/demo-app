@@ -1,1 +1,12 @@
-debug: true
+management:
+  cloudfoundry:
+    skip-ssl-validation: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    git:
+      mode: full
+
+
