@@ -8,5 +8,10 @@ management:
   info:
     git:
       mode: full
-
+spring:
+  application:
+    name: "demo-app"
+logging:
+  pattern:
+    level: "${spring.zipkin.service.name:${spring.application.name:-}},LOGGING_PATTERN_%X{X-B3-TraceId:-},LOGGING_PATTERN_%X{X-B3-SpanId:-},%X{X-Span-Export:-}"
 
